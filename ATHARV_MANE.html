@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atharv Mane | Portfolio</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --surface: #ffffff;
+        --surface-soft: #eef4ff;
+        --text: #0f172a;
+        --muted: #5f6b7a;
+        --accent: #2563eb;
+        --accent-2: #0f766e;
+        --accent-soft: #dbeafe;
+        --border: #e4eaf3;
+        --shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 24%),
+          radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.12), transparent 20%),
+          linear-gradient(135deg, #f8fbff 0%, var(--bg) 100%);
+      }
+      a { color: inherit; text-decoration: none; }
+
+      .page-shell {
+        width: min(1240px, calc(100% - 24px));
+        margin: 18px auto 32px;
+        padding: 20px 24px 28px;
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page-shell::before {
+        content: "";
+        position: absolute;
+        inset: auto -34px -42px auto;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(37, 99, 235, 0.08), transparent 72%);
+        pointer-events: none;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 12px;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border: 1px solid rgba(228, 234, 243, 0.95);
+        border-radius: 999px;
+        backdrop-filter: blur(16px);
+        background: rgba(255,255,255,0.86);
+        margin-bottom: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .dot {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+        font-size: 0.82rem;
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
+      }
+      .nav-links {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .nav-links a:hover { color: var(--text); }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+        gap: 26px;
+        align-items: center;
+        padding: 24px 4px 32px;
+      }
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: clamp(2.1rem, 4vw, 3.4rem);
+        line-height: 1.02;
+        margin: 0 0 14px;
+        max-width: 680px;
+        letter-spacing: -0.03em;
+      }
+      h1 span { color: var(--accent); }
+      .lead {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--muted);
+        max-width: 620px;
+        margin: 0 0 16px;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        font-weight: 600;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.16);
+      }
+      .btn.secondary { background: var(--surface); }
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .hero-badges span {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--surface-soft);
+        color: #4b5563;
+        font-size: 0.92rem;
+      }
+
+      .hero-visual { position: relative; }
+      .photo-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
+        min-height: 470px;
+        background: linear-gradient(135deg, #eef5ff, #e8f3ef);
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(228, 234, 243, 0.95);
+      }
+      .photo-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 20%;
+        display: block;
+      }
+      .floating-badge {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.92);
+        border: 1px solid rgba(228, 234, 243, 0.95);
+        color: var(--muted);
+        font-size: 0.9rem;
+        backdrop-filter: blur(10px);
+      }
+
+      section { padding: 14px 4px 18px; }
+      .section-title {
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .card-grid {
+        display: grid;
+        gap: 16px;
+      }
+      .about-grid { grid-template-columns: 1.1fr 0.9fr; }
+      .panel {
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+      }
+      .panel h3 { margin: 0 0 8px; font-size: 1.05rem; }
+      .panel p, .panel li { color: var(--muted); line-height: 1.75; }
+
+      .skill-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .skill-item {
+        padding: 14px;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, #ffffff, #f5f9ff);
+        min-height: 100%;
+      }
+      .skill-item strong { display: block; margin-bottom: 8px; }
+      .bar {
+        width: 100%;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--surface-soft);
+        overflow: hidden;
+        margin-top: 6px;
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .project-card {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, #ffffff, #f6faff);
+        transition: transform 220ms ease, box-shadow 220ms ease;
+        cursor: pointer;
+        height: 100%;
+      }
+      .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
+      }
+      .project-visual {
+        min-height: 170px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, #f8fbff, #e8f2ff);
+        display: grid;
+        place-items: center;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+      .project-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .project-card h3 { margin: 0 0 8px; }
+      .project-card p { margin: 0; color: var(--muted); line-height: 1.7; }
+      .timeline {
+        display: grid;
+        gap: 12px;
+      }
+      .timeline-item {
+        padding: 14px 16px;
+        border-left: 2px solid var(--accent-soft);
+        border-radius: 0 16px 16px 0;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .contact-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .contact-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--accent);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+      }
+      .contact-icon:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+      }
+      .contact-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      form {
+        display: grid;
+        gap: 12px;
+      }
+      input, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        font: inherit;
+        background: var(--surface);
+      }
+      textarea { min-height: 110px; resize: vertical; }
+      .form-note {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .footer {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.92rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .project-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.62);
+        backdrop-filter: blur(6px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        z-index: 30;
+      }
+      .project-modal.open { display: flex; }
+      .project-modal-card {
+        width: min(900px, 100%);
+        max-height: 90vh;
+        overflow: auto;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 20px;
+        position: relative;
+      }
+      .project-modal-close {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        border: none;
+        background: var(--surface-soft);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      .modal-hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .modal-image {
+        min-height: 220px;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, #f8fbff, #e8f2ff);
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-weight: 600;
+        overflow: hidden;
+      }
+      .modal-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .modal-meta {
+        display: grid;
+        gap: 10px;
+      }
+      .modal-meta .chip {
+        display: inline-block;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: var(--surface-soft);
+        color: var(--accent);
+        font-size: 0.85rem;
+        width: fit-content;
+      }
+      .modal-section {
+        margin-top: 12px;
+      }
+      .modal-section h4 { margin: 0 0 8px; }
+      .modal-section ul { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.7; }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 480ms ease, transform 480ms ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .about-grid,
+        .modal-hero {
+          grid-template-columns: 1fr;
+        }
+        .skill-grid,
+        .project-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        .page-shell {
+          width: min(100%, calc(100% - 16px));
+          margin: 8px auto 20px;
+          padding: 12px 12px 18px;
+          border-radius: 18px;
+        }
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+          border-radius: 18px;
+        }
+        .nav-links {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        .hero {
+          padding: 14px 2px 20px;
+          gap: 18px;
+        }
+        .cta-row {
+          flex-direction: column;
+        }
+        .btn {
+          width: 100%;
+          text-align: center;
+        }
+        .hero-badges {
+          flex-direction: column;
+        }
+        .skill-grid,
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+        .photo-card {
+          min-height: 320px;
+        }
+        .footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="dot">AM</div>
+          <div>Atharv Mane</div>
+        </div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero reveal">
+        <div>
+          <div class="eyebrow">WEB/ BACKEND/ AI Developer</div>
+          <h1>Passionate about building <span>modern web experiences</span>.</h1>
+          <p class="lead">
+            I’m a detail-oriented software developer with hands-on experience in frontend and backend development, strong problem-solving ability, and a growing focus on modern web applications, AI, and intelligent systems.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="#projects">Explore Work</a>
+            <a class="btn secondary" href="#contact">Say Hello</a>
+          </div>
+          <div class="hero-badges">
+            <span>Full Stack Development</span>
+            <span>AI / ML Enthusiast</span>
+            <span>Problem Solver</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="photo-card">
+            <img src="https://raw.githubusercontent.com/Atharv1221/ME/main/WhatsApp%20Image%202026-06-13%20at%205.42.47%20PM.jpeg" alt="Atharv Mane" />
+            <div class="floating-badge">Based in Navi Mumbai • Open to collaboration</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="reveal">
+        <div class="section-title">About</div>
+        <div class="card-grid about-grid">
+          <div class="panel">
+            <h3>Background</h3>
+            <p>
+              I’m currently pursuing a B.Tech in Computer Science Engineering (Artificial Intelligence & Machine Learning) at ViMEET, expected to graduate in 2027. My work combines practical software development with a strong curiosity for AI, backend systems, and modern web applications.
+            </p>
+          </div>
+          <div class="panel">
+            <h3>Strengths</h3>
+            <ul>
+              <li>Frontend and backend development</li>
+              <li>Database design and REST APIs</li>
+              <li>Creative problem solving and continuous learning</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="reveal">
+        <div class="section-title">Skills</div>
+        <div class="skill-grid">
+          <div class="skill-item">
+            <strong>Frontend</strong>
+            HTML, CSS, JavaScript
+            <div class="bar"><span style="width: 90%"></span></div>
+          </div>
+          <div class="skill-item">
+            <strong>Backend</strong>
+            Express.js, Node.js
+            <div class="bar"><span style="width: 82%"></span></div>
+          </div>
+          <div class="skill-item">
+            <strong>Database</strong>
+            MySQL, REST APIs
+            <div class="bar"><span style="width: 84%"></span></div>
+          </div>
+          <div class="skill-item">
+            <strong>Tools</strong>
+            GitHub, VS Code, Postman
+            <div class="bar"><span style="width: 88%"></span></div>
+          </div>
+          <div class="skill-item">
+            <strong>Design</strong>
+            Figma, UI thinking
+            <div class="bar"><span style="width: 76%"></span></div>
+          </div>
+          <div class="skill-item">
+            <strong>AI</strong>
+            Gemini, Llama, automation
+            <div class="bar"><span style="width: 80%"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="reveal">
+        <div class="section-title">Selected Projects</div>
+        <div class="project-grid">
+          <article class="project-card" data-project="know-law">
+            <div class="project-visual"><img src="https://raw.githubusercontent.com/Atharv1221/ME/main/knowthelaw.png" alt="Know The Law" /></div>
+            <h3>Know The Law</h3>
+            <p>An AI-powered legal awareness platform that simplifies Indian laws in native language and provides relevant legal guidance through intelligent query understanding.</p>
+          </article>
+          <article class="project-card" data-project="interview-simulator">
+            <div class="project-visual"><img src="https://raw.githubusercontent.com/Atharv1221/ME/main/aiinterview.png" alt="AI Interview Simulator" /></div>
+            <h3>AI Interview Simulator</h3>
+            <p>An interview-preparation platform with AI mock interviews, coding assessments, DSA practice, and real-time feedback.</p>
+          </article>
+          <article class="project-card" data-project="dodo-ai">
+            <div class="project-visual"><img src="https://raw.githubusercontent.com/Atharv1221/ME/main/dodoai.png" alt="DODO AI" /></div>
+            <h3>DODO AI</h3>
+            <p>A personal AI assistant focused on task management, reminders, personal goals, and finance-related automation.</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="project-modal" id="projectModal">
+        <div class="project-modal-card">
+          <button class="project-modal-close" onclick="closeProjectModal()" aria-label="Close project details">×</button>
+          <div id="projectModalContent"></div>
+        </div>
+      </div>
+
+      <section class="reveal">
+        <div class="section-title">Experience & Education</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>Current Focus</h3>
+            <p>Building full-stack web applications and exploring AI/ML concepts such as backend development, model fine-tuning, and intelligent automation.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Education</h3>
+            <p>B.Tech in Computer Science Engineering (AI & ML) at ViMEET, expected graduation 2027.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Interests</h3>
+            <p>Generative AI, intelligent systems, software testing, databases, and creating practical solutions for real-world problems.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="reveal">
+        <div class="section-title">Contact</div>
+        <div class="contact-grid">
+          <div class="panel">
+            <h3>Let’s build something refined and lasting</h3>
+            <p>Email: atharvmane404@gmail.com</p>
+            <p>Phone: +91-9702161668</p>
+            <p>Location: Navi Mumbai, Maharashtra</p>
+            <div class="contact-actions">
+              <a class="contact-icon" href="#" onclick="openEmailComposer(event)" aria-label="Email Atharv">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 6h16v12H4z"></path>
+                  <path d="m4 8 8 6 8-6"></path>
+                </svg>
+              </a>
+              <a class="contact-icon" href="#" onclick="openWhatsApp(event)" aria-label="Message Atharv on WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.47-.149-.67.149-.2.297-.767.967-.941 1.166-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.174.199-.297.298-.496.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.917-2.208-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.571-.01-.198 0-.521.074-.793.372-.272.298-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.099 3.2 5.077 4.487.709.306 1.262.49 1.694.626.712.227 1.36.195 1.874.118.572-.085 1.758-.719 2.006-1.413.249-.694.249-1.289.174-1.413-.074-.124-.273-.198-.57-.347Z"></path>
+                  <path d="M20.52 3.48A11.95 11.95 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.16 1.6 5.95L0 24l6.2-1.63A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52ZM12 21.82c-1.84 0-3.61-.5-5.14-1.43l-.37-.22-3.68.97.98-3.58-.24-.37A9.82 9.82 0 0 1 2.18 12c0-5.43 4.41-9.82 9.82-9.82 2.62 0 5.08 1.02 6.93 2.87A9.79 9.79 0 0 1 21.82 12c0 5.43-4.41 9.82-9.82 9.82Z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        <span>© <span id="year"></span> Atharv Mane</span>
+        <span>Developer</span>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach((item) => observer.observe(item));
+
+      function openEmailComposer(event) {
+        event.preventDefault();
+        const email = 'atharvmane404@gmail.com';
+        const subject = encodeURIComponent('Hello Atharv');
+        const body = encodeURIComponent('Hi Atharv, I saw your portfolio and would love to connect.');
+        const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+
+        window.location.href = mailtoUrl;
+        setTimeout(() => {
+          window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+        }, 250);
+      }
+
+      function openWhatsApp(event) {
+        event.preventDefault();
+        const phone = '919702161668';
+        const text = encodeURIComponent('Hello Atharv, I saw your portfolio and would love to connect.');
+        window.open(`https://wa.me/${phone}?text=${text}`, '_blank', 'noopener,noreferrer');
+      }
+
+      const projectDetails = {
+        'know-law': {
+          title: 'Know The Law',
+          summary: 'A legal awareness platform designed to simplify complex Indian laws into understandable guidance for everyday users.',
+          features: ['Natural-language legal query handling', 'Multi-language support for easier understanding', 'Scalable architecture for future government and public-service integrations'],
+          role: ['Team Lead', 'Designed the core concept and user experience', 'Worked on frontend flow and content structure', 'Focused on clarity, accessibility, and practical use cases'],
+          tech: ['HTML, CSS, JavaScript', 'AI-assisted content processing', 'Responsive web interface'],
+          imageLabel: '<img src="https://raw.githubusercontent.com/Atharv1221/ME/main/knowthelaw.png" alt="Know The Law" />'
+        },
+        'interview-simulator': {
+          title: 'AI Interview Simulator',
+          summary: 'An intelligent interview preparation system that blends mock interviews, coding practice, and feedback into one workflow.',
+          features: ['AI-driven mock interview sessions', 'DSA and coding practice modules', 'Real-time feedback and progress tracking'],
+          role: ['Built the product experience and interaction flows', 'Contributed to user journey and presentation', 'Focused on clarity, engagement, and responsiveness'],
+          tech: ['Frontend web development', 'AI-based interaction logic', 'Modern responsive UI'],
+          imageLabel: '<img src="https://raw.githubusercontent.com/Atharv1221/ME/main/aiinterview.png" alt="AI Interview Simulator" />'
+        },
+        'dodo-ai': {
+          title: 'DODO AI',
+          summary: 'A personal AI assistant concept for organizing tasks, reminders, goals, and everyday productivity in a simple, focused experience.',
+          features: ['Task and reminder management', 'Goal tracking and lifestyle automation', 'Clean assistant-driven interface for daily use'],
+          role: ['Team Lead', 'Shaped the product concept and interface', 'Focused on user flow and polished interaction design', 'Helped translate ideas into a practical experience'],
+          tech: ['Web-based UI', 'AI workflow ideas', 'Clean modular frontend structure'],
+          imageLabel: '<img src="https://raw.githubusercontent.com/Atharv1221/ME/main/dodoai.png" alt="DODO AI" />'
+        }
+      };
+
+      document.querySelectorAll('.project-card').forEach((card) => {
+        card.addEventListener('click', () => {
+          const key = card.getAttribute('data-project');
+          const data = projectDetails[key];
+          if (!data) return;
+
+          document.getElementById('projectModalContent').innerHTML = `
+            <div class="modal-hero">
+              <div class="modal-image">${data.imageLabel}</div>
+              <div class="modal-meta">
+                <div class="chip">${data.title}</div>
+                <h3>${data.title}</h3>
+                <p>${data.summary}</p>
+              </div>
+            </div>
+            <div class="modal-section">
+              <h4>Features</h4>
+              <ul>${data.features.map((item) => `<li>${item}</li>`).join('')}</ul>
+            </div>
+            <div class="modal-section">
+              <h4>My Role</h4>
+              <ul>${data.role.map((item) => `<li>${item}</li>`).join('')}</ul>
+            </div>
+            <div class="modal-section">
+              <h4>Technology</h4>
+              <ul>${data.tech.map((item) => `<li>${item}</li>`).join('')}</ul>
+            </div>
+          `;
+          document.getElementById('projectModal').classList.add('open');
+        });
+      });
+
+      function closeProjectModal() {
+        document.getElementById('projectModal').classList.remove('open');
+      }
+
+      document.getElementById('projectModal').addEventListener('click', (event) => {
+        if (event.target.id === 'projectModal') closeProjectModal();
+      });
+    </script>
+  </body>
+</html>

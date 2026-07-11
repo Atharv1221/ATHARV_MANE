@@ -4,567 +4,750 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atharv Mane | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      /* ============================================================
+         FOREST LIQUID GLASS — nature-toned Apple glass system
+         Palette pulled from the welcome image: sunlit forest greens,
+         teal river water, warm golden light, soft morning mist.
+         ============================================================ */
       :root {
-        --bg: #f4f7fb;
-        --surface: #ffffff;
-        --surface-soft: #eef4ff;
-        --text: #0f172a;
-        --muted: #5f6b7a;
-        --accent: #2563eb;
-        --accent-2: #0f766e;
-        --accent-soft: #dbeafe;
-        --border: #e4eaf3;
-        --shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+        --text: #17251c;          /* deep forest ink */
+        --muted: #4a5a4e;         /* moss */
+        --muted-dim: #7c8a7f;     /* soft sage */
+
+        --accent: #1f8a5b;        /* emerald leaf */
+        --accent-2: #45c489;      /* fresh spring green */
+        --accent-3: #86d9b4;      /* mist green */
+        --water: #2ba7ad;         /* teal river */
+        --warm: #eaa64a;          /* golden sunlight */
+        --warm-2: #f5c169;        /* soft gold */
+
+        --glass: rgba(255, 255, 255, 0.3);
+        --glass-strong: rgba(255, 255, 255, 0.46);
+        --glass-border: rgba(255, 255, 255, 0.66);
+        --glass-shadow: 0 18px 50px rgba(30, 60, 42, 0.18);
+        --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -8px 20px rgba(200, 232, 210, 0.28);
       }
 
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
+      ::selection { background: rgba(31, 138, 91, 0.26); color: #0f2318; }
+
+      /* Slim glass scrollbars — no chunky arrow buttons, rounded emerald thumb */
+      * { scrollbar-width: thin; scrollbar-color: rgba(31, 138, 91, 0.45) transparent; }
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(var(--accent-2), var(--accent));
+        border-radius: 999px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(var(--accent), #147a4c);
+        background-clip: padding-box;
+      }
+      ::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+      ::-webkit-scrollbar-corner { background: transparent; }
+
       body {
         margin: 0;
         font-family: "Inter", "Segoe UI", Arial, sans-serif;
         color: var(--text);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        position: relative;
+        /* Sunlit-forest atmosphere: warm top light, green + teal + gold pools */
         background:
-          radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 24%),
-          radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.12), transparent 20%),
-          linear-gradient(135deg, #f8fbff 0%, var(--bg) 100%);
+          radial-gradient(ellipse 62% 46% at 74% 4%, rgba(255, 250, 235, 0.92), transparent 60%),
+          radial-gradient(circle at 10% 18%, rgba(178, 222, 190, 0.55), transparent 46%),
+          radial-gradient(circle at 90% 60%, rgba(150, 214, 210, 0.42), transparent 44%),
+          radial-gradient(circle at 42% 102%, rgba(206, 226, 190, 0.5), transparent 52%),
+          linear-gradient(165deg, #eef3ea 0%, #e7f0e9 44%, #f0f5ef 80%, #f5f9f3 100%);
+        background-attachment: fixed;
       }
+
+      /* Soft ambient light pools drifting like sun through leaves */
+      .bg-scene { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+      .orb { position: absolute; border-radius: 50%; filter: blur(84px); opacity: 0.42; animation: float 22s ease-in-out infinite; }
+      .orb.a { width: 480px; height: 480px; top: -150px; left: -120px; background: radial-gradient(circle, #a6e0b6, transparent 70%); }
+      .orb.b { width: 430px; height: 430px; top: 28%; right: -160px; background: radial-gradient(circle, #9adfd6, transparent 70%); animation-delay: -7s; }
+      .orb.c { width: 440px; height: 440px; bottom: -180px; left: 32%; background: radial-gradient(circle, #f5cf8c, transparent 70%); animation-delay: -12s; }
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(38px, -28px) scale(1.08); }
+        66% { transform: translate(-28px, 24px) scale(0.95); }
+      }
+
+      /* Very subtle grain so glass reads like a real physical atmosphere */
+      .bg-noise {
+        position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
       a { color: inherit; text-decoration: none; }
 
-      .page-shell {
-        width: min(1240px, calc(100% - 24px));
-        margin: 18px auto 32px;
-        padding: 20px 24px 28px;
-        border: 1px solid var(--border);
-        border-radius: 30px;
-        background: rgba(255, 255, 255, 0.94);
-        box-shadow: var(--shadow);
+      /* ---------------- Glass foundation ---------------- */
+      .glass {
+        background: linear-gradient(135deg, rgba(255,255,255,0.46), rgba(232,246,238,0.16));
+        backdrop-filter: blur(34px) saturate(185%) brightness(1.06) contrast(1.04);
+        -webkit-backdrop-filter: blur(34px) saturate(185%) brightness(1.06) contrast(1.04);
+        border: 1px solid rgba(255,255,255,0.5);
+        /* thick refractive rim: bright top edge + directional side lights + inner ring
+           + layered ambient shadow = molded 3D water-glass */
+        box-shadow:
+          0 20px 45px rgba(30, 60, 42, 0.16),
+          0 40px 80px rgba(30, 60, 42, 0.10),
+          inset 0 2px 1px rgba(255, 255, 255, 0.98),
+          inset 0 -3px 8px rgba(255, 255, 255, 0.55),
+          inset 3px 0 6px rgba(255, 255, 255, 0.3),
+          inset -3px 0 6px rgba(255, 255, 255, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+          inset 0 -14px 30px rgba(150, 200, 168, 0.14);
         position: relative;
         overflow: hidden;
+        isolation: isolate;
       }
-
-      .page-shell::before {
+      /* top gloss + diagonal reflection + a specular hot-spot that follows the cursor */
+      .glass::before {
         content: "";
         position: absolute;
-        inset: auto -34px -42px auto;
-        width: 240px;
-        height: 240px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.08), transparent 72%);
+        inset: 1px;
+        border-radius: inherit;
+        background:
+          radial-gradient(160px circle at var(--mx, 50%) var(--my, -12%), rgba(255,255,255,0.6), transparent 55%),
+          linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.22) 13%, rgba(255,255,255,0) 32%),
+          linear-gradient(135deg, rgba(255,255,255,0.42), rgba(255,255,255,0) 44%);
         pointer-events: none;
+        z-index: 0;
+        transition: background 120ms ease;
       }
-
-      .topbar {
-        position: sticky;
-        top: 12px;
-        z-index: 10;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 16px;
-        border: 1px solid rgba(228, 234, 243, 0.95);
+      .glass > * { position: relative; z-index: 1; }
+      /* chromatic aberration edge — real-glass rainbow bleeding off the bottom */
+      .glass::after {
+        content: "";
+        position: absolute;
+        left: 6%; right: 6%; bottom: 3px;
+        height: 12px;
         border-radius: 999px;
-        backdrop-filter: blur(16px);
-        background: rgba(255,255,255,0.86);
-        margin-bottom: 24px;
+        background: linear-gradient(90deg, rgba(255,120,120,0.6), rgba(255,205,110,0.55), rgba(120,220,150,0.55), rgba(80,205,205,0.55), rgba(170,140,255,0.6));
+        background-size: 200% 100%;
+        filter: blur(9px);
+        opacity: 0.55;
+        pointer-events: none;
+        z-index: 1;
       }
+      .glass:hover::after { animation: prismShift 4s linear infinite; opacity: 0.75; }
+      @keyframes prismShift { to { background-position: -200% 0; } }
 
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+      .page-shell { width: min(1180px, calc(100% - 28px)); margin: 22px auto 40px; padding: 16px 22px 30px; position: relative; }
+
+      /* ---------------- Top navigation ---------------- */
+      .topbar {
+        position: sticky; top: 14px; z-index: 20;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 10px 14px;
+        border-radius: 999px;
+        margin-bottom: 30px;
+        background: var(--glass-strong);
       }
+      .topbar::after { left: 20%; right: 20%; }
+      .brand { display: flex; align-items: center; gap: 11px; font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+      /* Leaf mark instead of a plain badge */
       .dot {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        width: 38px; height: 38px; border-radius: 13px; display: grid; place-items: center;
+        background: linear-gradient(135deg, #5fd18f, var(--accent) 60%, #147a4c);
         color: white;
-        font-size: 0.82rem;
-        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
+        box-shadow: 0 8px 20px rgba(31, 138, 91, 0.42), inset 0 1px 0 rgba(255,255,255,0.6);
       }
-      .nav-links {
-        display: flex;
-        gap: 16px;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-      .nav-links a:hover { color: var(--text); }
+      .dot svg { width: 20px; height: 20px; }
+      .nav-links { display: flex; gap: 4px; color: var(--muted); font-size: 0.92rem; }
+      .nav-links a { padding: 7px 13px; border-radius: 999px; transition: color 200ms ease, background 200ms ease; }
+      .nav-links a:hover { color: var(--text); background: rgba(255, 255, 255, 0.55); }
 
+      /* ---------------- Hero ---------------- */
       .hero {
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-        gap: 26px;
-        align-items: center;
-        padding: 24px 4px 32px;
+        display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.85fr);
+        gap: 32px; align-items: center; padding: 20px 4px 44px;
       }
       .eyebrow {
-        display: inline-block;
-        margin-bottom: 12px;
-        padding: 7px 12px;
-        border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
-        font-size: 0.74rem;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
+        display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px;
+        padding: 8px 15px; border-radius: 999px;
+        background: var(--glass-strong);
+        backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-inset);
+        color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
       }
-      h1 {
-        font-size: clamp(2.1rem, 4vw, 3.4rem);
-        line-height: 1.02;
-        margin: 0 0 14px;
-        max-width: 680px;
-        letter-spacing: -0.03em;
+      .eyebrow::before {
+        content: ""; width: 8px; height: 8px; border-radius: 50%;
+        background: var(--warm); box-shadow: 0 0 12px var(--warm); animation: pulse 2s ease-in-out infinite;
       }
-      h1 span { color: var(--accent); }
-      .lead {
-        font-size: 1rem;
-        line-height: 1.75;
-        color: var(--muted);
-        max-width: 620px;
-        margin: 0 0 16px;
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+      h1 { font-family: "Sora", sans-serif; font-size: clamp(2.3rem, 4.6vw, 3.7rem); line-height: 1.05; margin: 0 0 18px; max-width: 680px; letter-spacing: -0.035em; font-weight: 800; }
+      h1 .grad {
+        background: linear-gradient(120deg, var(--warm), var(--accent) 52%, var(--water));
+        background-size: 220% auto;
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        animation: shimmer 7s linear infinite;
       }
-      .cta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 16px;
+      @keyframes shimmer { to { background-position: 220% center; } }
+      .lead { font-size: 1.02rem; line-height: 1.75; color: var(--muted); max-width: 560px; margin: 0 0 14px; }
+      /* forest tagline echoing the welcome image */
+      .tagline {
+        display: flex; align-items: center; gap: 10px; margin: 0 0 22px;
+        color: var(--muted-dim); font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600;
       }
+      .tagline svg { width: 16px; height: 16px; color: var(--accent); }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+
+      /* ---------------- Liquid-glass buttons (multi-layer crystal) ---------------- */
       .btn {
-        display: inline-block;
-        padding: 10px 15px;
-        border-radius: 999px;
-        border: 1px solid var(--border);
-        font-weight: 600;
-        transition: transform 180ms ease, box-shadow 180ms ease;
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 14px 24px; border-radius: 999px; font-weight: 600; font-size: 0.95rem;
+        position: relative; overflow: hidden; isolation: isolate;
+        transition:
+          transform 440ms cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 440ms cubic-bezier(0.22, 1, 0.36, 1),
+          backdrop-filter 440ms ease;
+        will-change: transform;
       }
-      .btn:hover { transform: translateY(-2px); }
+      @media (hover: hover) {
+        .btn:hover { transform: translateY(-4px) scale(1.03); }
+      }
+      /* click: compress, then spring back */
+      .btn:active { transform: translateY(-1px) scale(0.98); transition-duration: 170ms; }
+
+      /* PRIMARY — warm orange liquid glass with internal bloom */
       .btn.primary {
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        color: white;
-        border-color: transparent;
-        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.16);
+        color: #fff;
+        background:
+          radial-gradient(120% 85% at 50% -25%, rgba(255,255,255,0.6), transparent 55%),
+          linear-gradient(135deg, #ffce85 0%, var(--warm) 50%, #d97e1f 100%);
+        border: 1px solid rgba(255,255,255,0.5);
+        backdrop-filter: blur(22px) saturate(190%);
+        -webkit-backdrop-filter: blur(22px) saturate(190%);
+        box-shadow:
+          0 12px 26px rgba(224,140,40,0.42),
+          0 24px 50px rgba(224,140,40,0.28),
+          inset 0 2px 2px rgba(255,255,255,0.95),
+          inset 0 -8px 16px rgba(150,70,0,0.4),
+          inset 0 0 0 1px rgba(255,255,255,0.3);
       }
-      .btn.secondary { background: var(--surface); }
-      .hero-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .hero-badges span {
-        padding: 8px 12px;
+      /* glossy white reflection across the top (sits behind the label) */
+      .btn.primary::before {
+        content: ""; position: absolute; z-index: -1; left: 7%; right: 7%; top: 5px; height: 46%;
         border-radius: 999px;
-        background: var(--surface-soft);
-        color: #4b5563;
-        font-size: 0.92rem;
+        background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.05));
+        pointer-events: none;
+      }
+      @media (hover: hover) {
+        .btn.primary:hover {
+          backdrop-filter: blur(26px) saturate(200%);
+          -webkit-backdrop-filter: blur(26px) saturate(200%);
+          box-shadow:
+            0 18px 34px rgba(224,140,40,0.5),
+            0 34px 66px rgba(224,140,40,0.34),
+            inset 0 2px 3px rgba(255,255,255,1),
+            inset 0 -8px 18px rgba(150,70,0,0.42),
+            inset 0 0 0 1px rgba(255,255,255,0.42),
+            -9px 0 22px rgba(255,120,90,0.36),   /* chromatic warm edge */
+            9px 0 22px rgba(120,200,255,0.3);     /* chromatic cool edge */
+        }
+      }
+
+      /* SECONDARY — clear crystal glass, blue/cyan edge */
+      .btn.secondary {
+        color: var(--text);
+        background:
+          radial-gradient(120% 85% at 50% -25%, rgba(255,255,255,0.65), transparent 55%),
+          linear-gradient(135deg, rgba(255,255,255,0.55), rgba(220,240,246,0.2));
+        backdrop-filter: blur(32px) saturate(180%);
+        -webkit-backdrop-filter: blur(32px) saturate(180%);
+        border: 1px solid rgba(255,255,255,0.7);
+        box-shadow:
+          0 12px 28px rgba(30,70,74,0.16),
+          inset 0 2px 2px rgba(255,255,255,0.98),
+          inset 0 -6px 14px rgba(255,255,255,0.5),
+          inset 0 0 0 1px rgba(255,255,255,0.4),
+          inset 0 0 22px rgba(120,200,220,0.14);   /* faint cyan refraction */
+      }
+      .btn.secondary::before {
+        content: ""; position: absolute; z-index: -1; left: 6%; right: 6%; top: 4px; height: 44%;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0));
+        pointer-events: none;
+      }
+      @media (hover: hover) {
+        .btn.secondary:hover {
+          backdrop-filter: blur(36px) saturate(190%);
+          -webkit-backdrop-filter: blur(36px) saturate(190%);
+          box-shadow:
+            0 18px 36px rgba(30,70,74,0.2),
+            inset 0 2px 3px rgba(255,255,255,1),
+            inset 0 -6px 16px rgba(255,255,255,0.55),
+            inset 0 0 0 1px rgba(255,255,255,0.5),
+            -8px 0 20px rgba(90,180,255,0.32),    /* blue edge glow */
+            8px 0 20px rgba(110,230,220,0.3);      /* cyan */
+        }
+      }
+
+      /* GHOST — transparent liquid glass (CV action). Dark label for contrast. */
+      .btn.ghost {
+        color: #14301f;
+        background:
+          radial-gradient(120% 85% at 50% -25%, rgba(255,255,255,0.5), transparent 55%),
+          linear-gradient(135deg, rgba(255,255,255,0.42), rgba(224,244,232,0.14));
+        backdrop-filter: blur(26px) saturate(175%);
+        -webkit-backdrop-filter: blur(26px) saturate(175%);
+        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow:
+          0 12px 28px rgba(30,82,56,0.14),
+          inset 0 2px 2px rgba(255,255,255,0.9),
+          inset 0 0 0 1px rgba(255,255,255,0.35);
+      }
+      .btn.ghost svg { width: 17px; height: 17px; color: var(--accent); }
+      @media (hover: hover) {
+        .btn.ghost:hover {
+          box-shadow:
+            0 18px 34px rgba(30,82,56,0.18),
+            inset 0 2px 3px rgba(255,255,255,0.95),
+            inset 0 0 0 1px rgba(255,255,255,0.45),
+            -7px 0 18px rgba(70,196,137,0.3),
+            7px 0 18px rgba(110,230,220,0.26);
+        }
+      }
+
+      .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+      .hero-badges span {
+        padding: 8px 14px; border-radius: 999px; color: var(--muted); font-size: 0.86rem;
+        background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border); box-shadow: var(--glass-inset);
       }
 
       .hero-visual { position: relative; }
+      /* Portrait framed on a sunlit-forest backdrop. The photo's white studio
+         background is baked in, so a colored gradient sits BEHIND it and mix-blend
+         multiply recolors those white pixels into the gradient — warm light up top
+         fading into misty green/teal, matching the welcome image. */
       .photo-card {
-        position: relative;
-        overflow: hidden;
+        position: relative; overflow: hidden; aspect-ratio: 4 / 5; min-height: 400px;
         border-radius: 30px;
-        min-height: 470px;
-        background: linear-gradient(135deg, #eef5ff, #e8f3ef);
-        box-shadow: var(--shadow);
-        border: 1px solid rgba(228, 234, 243, 0.95);
+        background:
+          radial-gradient(ellipse 95% 62% at 50% -6%, rgba(247, 228, 184, 0.95), transparent 58%),
+          linear-gradient(158deg, #c9e7d1 0%, #b4e1d8 48%, #a6d6ce 100%);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        box-shadow:
+          0 30px 70px rgba(30, 60, 42, 0.22),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
       }
       .photo-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 20%;
-        display: block;
+        width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block;
+        mix-blend-mode: multiply;
+        filter: contrast(1.04) saturate(1.03);
       }
       .floating-badge {
-        position: absolute;
-        left: 18px;
-        bottom: 18px;
-        padding: 10px 12px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.92);
-        border: 1px solid rgba(228, 234, 243, 0.95);
-        color: var(--muted);
-        font-size: 0.9rem;
-        backdrop-filter: blur(10px);
+        position: absolute; left: 16px; bottom: 16px; right: 16px; z-index: 3;
+        display: flex; align-items: center; gap: 12px;
+        padding: 12px 16px; border-radius: 18px; font-size: 0.86rem; color: var(--text);
+        background: linear-gradient(135deg, rgba(255,255,255,0.62), rgba(210,240,224,0.36));
+        backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%);
+        border: 1px solid rgba(255,255,255,0.7);
+        box-shadow: 0 14px 30px rgba(31, 138, 91, 0.22), var(--glass-inset);
+      }
+      /* pulsing "available" status light */
+      .floating-badge .status-dot {
+        flex: none; width: 11px; height: 11px; border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #7ff0b4, var(--accent) 70%);
+        box-shadow: 0 0 0 0 rgba(31, 138, 91, 0.55), 0 0 10px rgba(31, 138, 91, 0.7);
+        animation: availPulse 2.2s ease-out infinite;
+      }
+      @keyframes availPulse {
+        0% { box-shadow: 0 0 0 0 rgba(31,138,91,0.5), 0 0 10px rgba(31,138,91,0.7); }
+        70% { box-shadow: 0 0 0 12px rgba(31,138,91,0), 0 0 10px rgba(31,138,91,0.7); }
+        100% { box-shadow: 0 0 0 0 rgba(31,138,91,0), 0 0 10px rgba(31,138,91,0.7); }
+      }
+      .floating-badge .badge-text { display: flex; flex-direction: column; line-height: 1.35; }
+      .floating-badge .badge-text small { color: #33463b; font-size: 0.78rem; font-weight: 500; }
+      .floating-badge .badge-text b {
+        font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.92rem;
+        color: var(--accent); letter-spacing: 0.01em;
       }
 
-      section { padding: 14px 4px 18px; }
-      .section-title {
-        display: inline-block;
-        margin-bottom: 12px;
-        font-size: 0.84rem;
-        font-weight: 800;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--accent);
-      }
-      .card-grid {
-        display: grid;
-        gap: 16px;
-      }
+      section { padding: 34px 4px; }
+      .section-head { margin-bottom: 22px; }
+      .section-title { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+      .section-sub { font-family: "Sora", sans-serif; font-size: clamp(1.35rem, 2.4vw, 1.9rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+
+      .card-grid { display: grid; gap: 18px; }
       .about-grid { grid-template-columns: 1.1fr 0.9fr; }
-      .panel {
-        padding: 18px;
-        border: 1px solid var(--border);
-        border-radius: 22px;
-        background: var(--surface);
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
-      }
-      .panel h3 { margin: 0 0 8px; font-size: 1.05rem; }
-      .panel p, .panel li { color: var(--muted); line-height: 1.75; }
 
-      .skill-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
+      .panel { padding: 22px; border-radius: 26px; transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .panel h3 { font-family: "Sora", sans-serif; margin: 0 0 10px; font-size: 1.1rem; }
+      .panel p, .panel li { color: var(--muted); line-height: 1.8; }
+      .panel ul { margin: 0; padding-left: 18px; }
+
+      /* ---------------- Skills ---------------- */
+      .skill-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
       .skill-item {
-        position: relative;
-        padding: 14px;
-        border-radius: 18px;
-        border: 1px solid var(--border);
-        background: linear-gradient(135deg, #ffffff, #f5f9ff);
-        min-height: 100%;
-        overflow: hidden;
-        transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+        position: relative; padding: 18px; border-radius: 24px; overflow: hidden;
+        transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease;
       }
-      .skill-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
-        border-color: rgba(37, 99, 235, 0.22);
+      .skill-item > .glow {
+        content: ""; position: absolute; inset: 0; z-index: 0;
+        background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), rgba(31, 138, 91, 0.16), transparent 60%);
+        opacity: 0; transition: opacity 240ms ease; pointer-events: none;
       }
-      .skill-item strong { display: block; margin-bottom: 8px; }
-      .skill-hover-info {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        display: flex;
-        gap: 6px;
-        opacity: 0;
-        transform: translateY(4px);
-        pointer-events: none;
-        transition: all 200ms ease;
-      }
-      .skill-item:hover .skill-hover-info {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .skill-hover-info span {
-        padding: 5px 8px;
-        border-radius: 999px;
-        background: rgba(37, 99, 235, 0.1);
-        color: var(--accent);
-        font-size: 0.72rem;
-        font-weight: 700;
-        border: 1px solid rgba(37, 99, 235, 0.16);
-      }
-      .bar {
-        width: 100%;
-        height: 9px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgba(15, 23, 42, 0.08), rgba(37, 99, 235, 0.16));
-        border: 1px solid rgba(15, 23, 42, 0.06);
-        overflow: hidden;
-        margin-top: 8px;
-        box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.07);
-      }
-      .bar span {
-        display: block;
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, var(--accent), var(--accent-2));
-        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
-      }
+      .skill-item:hover { box-shadow: 0 22px 46px rgba(24, 70, 52, 0.22), var(--glass-inset); }
+      .skill-item:hover > .glow { opacity: 1; }
+      .skill-item strong, .skill-item .sk-desc, .skill-item .bar, .skill-hover-info { position: relative; z-index: 1; }
+      .skill-item strong { font-family: "Sora", sans-serif; display: block; margin-bottom: 4px; font-size: 1.02rem; }
+      .skill-item .sk-desc { color: var(--muted); font-size: 0.9rem; }
+      .skill-hover-info { position: absolute; top: 14px; right: 14px; display: flex; gap: 6px; opacity: 0; transform: translateY(4px); pointer-events: none; transition: all 220ms ease; }
+      .skill-item:hover .skill-hover-info { opacity: 1; transform: translateY(0); }
+      .skill-hover-info span { padding: 5px 9px; border-radius: 999px; background: rgba(31, 138, 91, 0.16); color: var(--accent); font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(31, 138, 91, 0.3); }
+      .bar { width: 100%; height: 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.42); border: 1px solid rgba(255,255,255,0.55); overflow: hidden; margin-top: 12px; box-shadow: inset 0 1px 3px rgba(24,70,52,0.12); }
+      .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2) 70%, var(--water)); box-shadow: 0 0 12px rgba(31, 138, 91, 0.5); width: 0; transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1); }
 
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
+      /* ---------------- Projects ---------------- */
+      .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+      .project-card { display: flex; flex-direction: column; padding: 16px; border-radius: 26px; cursor: pointer; height: 100%; transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease; }
+      .project-card:hover { box-shadow: 0 26px 50px rgba(24, 70, 52, 0.24), var(--glass-inset); }
+      .project-visual { aspect-ratio: 16 / 10; border-radius: 18px; border: 1px solid var(--glass-border); overflow: hidden; margin-bottom: 14px; background: rgba(255,255,255,0.25); }
+      .project-visual img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 400ms ease; }
+      .project-card:hover .project-visual img { transform: scale(1.05); }
+      .project-card h3 { font-family: "Sora", sans-serif; margin: 0 0 8px; font-size: 1.08rem; }
+      .project-card p { margin: 0 0 12px; color: var(--muted); line-height: 1.7; font-size: 0.92rem; }
+      .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+      .project-tags span { font-size: 0.72rem; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.42); border: 1px solid var(--glass-border); color: var(--muted); }
+
+      /* ---------------- Education ---------------- */
+      .edu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .edu-card { position: relative; padding: 24px 20px; border-radius: 26px; transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .edu-card:hover { box-shadow: 0 22px 46px rgba(24, 70, 52, 0.2), var(--glass-inset); }
+      .edu-ring {
+        width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 16px;
+        background:
+          radial-gradient(closest-side, rgba(255,255,255,0.55) 70%, transparent 72% 100%),
+          conic-gradient(var(--accent) calc(var(--pct, 0) * 1%), rgba(255,255,255,0.35) 0);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
       }
-      .project-card {
-        display: flex;
-        flex-direction: column;
-        padding: 16px;
-        border-radius: 22px;
-        border: 1px solid var(--border);
-        background: linear-gradient(135deg, #ffffff, #f6faff);
-        transition: transform 220ms ease, box-shadow 220ms ease;
-        cursor: pointer;
-        height: 100%;
-      }
-      .project-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
-      }
-      .project-visual {
-        min-height: 170px;
-        border-radius: 16px;
-        border: 1px solid var(--border);
-        background: linear-gradient(135deg, #f8fbff, #e8f2ff);
-        display: grid;
-        place-items: center;
-        margin-bottom: 12px;
-        overflow: hidden;
-      }
-      .project-visual img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .project-card h3 { margin: 0 0 8px; }
-      .project-card p { margin: 0; color: var(--muted); line-height: 1.7; }
-      .timeline {
-        display: grid;
-        gap: 12px;
-      }
-      .timeline-item {
-        padding: 14px 16px;
-        border-left: 2px solid var(--accent-soft);
-        border-radius: 0 16px 16px 0;
-        background: var(--surface);
-        border-top: 1px solid var(--border);
-        border-right: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .contact-actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 12px;
-      }
+      .edu-ring b { font-family: "Sora", sans-serif; font-size: 1.05rem; color: var(--text); }
+      .edu-card h3 { font-family: "Sora", sans-serif; margin: 0 0 4px; font-size: 1.05rem; }
+      .edu-card .edu-meta { color: var(--muted); font-size: 0.9rem; margin: 0 0 2px; }
+      .edu-card .edu-year { color: var(--muted-dim); font-size: 0.82rem; margin: 0; }
+
+      /* ---------------- Timeline ---------------- */
+      .timeline { display: grid; gap: 14px; }
+      .timeline-item { position: relative; padding: 18px 20px 18px 26px; border-radius: 22px; overflow: hidden; }
+      .timeline-item::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 4px; border-radius: 999px; background: linear-gradient(var(--accent-2), var(--accent)); z-index: 1; }
+      .timeline-item h3 { font-family: "Sora", sans-serif; margin: 0 0 6px; font-size: 1.05rem; }
+      .timeline-item p { margin: 0; color: var(--muted); line-height: 1.75; }
+
+      /* ---------------- Contact ---------------- */
+      .contact-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+      .contact-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
       .contact-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 46px;
-        height: 46px;
-        border-radius: 50%;
-        border: 1px solid var(--border);
-        background: var(--surface);
-        color: var(--accent);
-        transition: transform 180ms ease, box-shadow 180ms ease;
-        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+        display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 16px;
+        color: var(--accent); background: var(--glass-strong);
+        backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--glass-border); box-shadow: var(--glass-inset);
+        transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease, background 220ms ease;
       }
-      .contact-icon:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
-      }
-      .contact-icon svg {
-        width: 20px;
-        height: 20px;
-      }
-      form {
-        display: grid;
-        gap: 12px;
-      }
-      input, textarea {
-        width: 100%;
-        padding: 12px 14px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        font: inherit;
-        background: var(--surface);
-      }
-      textarea { min-height: 110px; resize: vertical; }
-      .form-note {
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-      .footer {
-        margin-top: 16px;
-        padding-top: 16px;
-        border-top: 1px solid var(--border);
-        color: var(--muted);
-        font-size: 0.92rem;
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
+      .contact-icon:hover { transform: translateY(-3px); background: rgba(31, 138, 91, 0.16); box-shadow: 0 12px 24px rgba(31, 138, 91, 0.28); }
+      .contact-icon svg { width: 20px; height: 20px; }
+      .contact-line { display: flex; align-items: center; gap: 10px; color: var(--muted); margin: 6px 0; }
+      .contact-line svg { width: 16px; height: 16px; color: var(--accent); flex: none; }
 
-      .project-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(15, 23, 42, 0.62);
-        backdrop-filter: blur(6px);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        z-index: 30;
-      }
+      .footer { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.5); color: var(--muted-dim); font-size: 0.9rem; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+      /* ---------------- Project modal ---------------- */
+      .project-modal { position: fixed; inset: 0; background: rgba(24, 42, 30, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 40; }
       .project-modal.open { display: flex; }
-      .project-modal-card {
-        width: min(900px, 100%);
-        max-height: 90vh;
-        overflow: auto;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        box-shadow: var(--shadow);
-        padding: 20px;
-        position: relative;
-      }
-      .project-modal-close {
-        position: absolute;
-        right: 14px;
-        top: 14px;
-        border: none;
-        background: var(--surface-soft);
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1rem;
-      }
-      .modal-hero {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 16px;
-        margin-bottom: 16px;
-      }
-      .modal-image {
-        min-height: 220px;
-        border-radius: 18px;
-        border: 1px solid var(--border);
-        background: linear-gradient(135deg, #f8fbff, #e8f2ff);
-        display: grid;
-        place-items: center;
-        color: var(--muted);
-        font-weight: 600;
-        overflow: hidden;
-      }
-      .modal-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .modal-meta {
-        display: grid;
-        gap: 10px;
-      }
-      .modal-meta .chip {
-        display: inline-block;
-        padding: 7px 10px;
-        border-radius: 999px;
-        background: var(--surface-soft);
-        color: var(--accent);
-        font-size: 0.85rem;
-        width: fit-content;
-      }
-      .modal-section {
-        margin-top: 12px;
-      }
-      .modal-section h4 { margin: 0 0 8px; }
-      .modal-section ul { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.7; }
+      .project-modal-card { width: min(880px, 100%); max-height: 90vh; overflow: auto; border-radius: 28px; padding: 22px; position: relative; background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(28px) saturate(175%); -webkit-backdrop-filter: blur(28px) saturate(175%); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow), var(--glass-inset); }
+      .project-modal-close { position: absolute; right: 16px; top: 16px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.5); color: var(--text); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; transition: background 180ms ease; }
+      .project-modal-close:hover { background: rgba(255,255,255,0.8); }
+      .modal-hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; margin-bottom: 18px; }
+      .modal-image { min-height: 220px; border-radius: 20px; border: 1px solid var(--glass-border); overflow: hidden; }
+      .modal-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .modal-meta { display: grid; gap: 10px; align-content: start; }
+      .modal-meta .chip { display: inline-block; padding: 6px 12px; border-radius: 999px; background: rgba(31, 138, 91, 0.16); color: var(--accent); font-size: 0.8rem; font-weight: 600; width: fit-content; }
+      .modal-meta h3 { font-family: "Sora", sans-serif; margin: 0; }
+      .modal-meta p { color: var(--muted); line-height: 1.7; margin: 0; }
+      .modal-section { margin-top: 16px; }
+      .modal-section h4 { font-family: "Sora", sans-serif; margin: 0 0 8px; }
+      .modal-section ul { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.8; }
 
-      .reveal {
+      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 640ms ease, transform 640ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+
+      /* ---------------- Interactive tilt cards (JS drives CSS vars) ---------------- */
+      .panel, .project-card, .edu-card, .skill-item, .timeline-item {
         opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 480ms ease, transform 480ms ease;
+        transform:
+          perspective(1000px)
+          rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+          translate3d(0, var(--lift, 0px), 0) scale(var(--press, 1));
+        transform-style: preserve-3d;
+        transition: opacity 660ms ease var(--enter-delay, 0s), box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
       }
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .reveal.visible .panel,
+      .reveal.visible .project-card,
+      .reveal.visible .edu-card,
+      .reveal.visible .skill-item,
+      .reveal.visible .timeline-item { opacity: 1; }
+      /* staggered reveal order per grid */
+      :is(.about-grid, .skill-grid, .project-grid, .edu-grid, .timeline) > *:nth-child(1) { --enter-delay: 0.05s; }
+      :is(.about-grid, .skill-grid, .project-grid, .edu-grid, .timeline) > *:nth-child(2) { --enter-delay: 0.13s; }
+      :is(.about-grid, .skill-grid, .project-grid, .edu-grid, .timeline) > *:nth-child(3) { --enter-delay: 0.21s; }
+      :is(.about-grid, .skill-grid, .project-grid, .edu-grid, .timeline) > *:nth-child(4) { --enter-delay: 0.29s; }
+      :is(.about-grid, .skill-grid, .project-grid, .edu-grid, .timeline) > *:nth-child(5) { --enter-delay: 0.37s; }
+      :is(.about-grid, .skill-grid, .project-grid, .edu-grid, .timeline) > *:nth-child(6) { --enter-delay: 0.45s; }
+
+      /* touch: the finger becomes the light source */
+      .touch-glow { filter: brightness(1.06) saturate(1.05); }
+      .touch-glow::after { animation: prismShift 3s linear infinite; opacity: 0.85; }
+
+      /* photo specular that follows the pointer */
+      .photo-card::after {
+        content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2;
+        background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.28), transparent 55%);
+        opacity: 0; transition: opacity 320ms ease; mix-blend-mode: screen;
+      }
+      @media (hover: hover) { .photo-card:hover::after { opacity: 1; } }
+
+      /* subtle device-tilt parallax on the ambient background */
+      .bg-scene { transform: translate3d(var(--tiltx, 0px), var(--tilty, 0px), 0); transition: transform 240ms ease; }
+
+      /* ---------------- Scroll progress bar ---------------- */
+      .scroll-progress {
+        position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 60;
+        background: linear-gradient(90deg, var(--warm), var(--accent), var(--water));
+        box-shadow: 0 0 10px rgba(31, 138, 91, 0.5);
+        transition: width 120ms linear;
       }
 
-      @media (max-width: 980px) {
-        .hero,
-        .about-grid,
-        .modal-hero {
-          grid-template-columns: 1fr;
-        }
-        .skill-grid,
-        .project-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+      /* ============================================================
+         LOCK SCREEN — sunlit-forest wallpaper, matched to the site
+         ============================================================ */
+      body.is-locked { overflow: hidden; height: 100vh; }
+      .lock-screen {
+        position: fixed; inset: 0; z-index: 100;
+        background-color: #10201a;
+        background-position: center; background-size: cover; background-repeat: no-repeat;
+        display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+        padding: 54px 22px 44px;
+        cursor: grab; touch-action: none; user-select: none;
+        will-change: transform;
+        transition: transform 820ms cubic-bezier(0.7, 0, 0.15, 1), opacity 820ms ease;
+      }
+      /* soft forest-canopy vignette so widgets stay legible */
+      .lock-screen::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background:
+          linear-gradient(to bottom, rgba(10, 30, 20, 0.34), transparent 24%, transparent 54%, rgba(10, 26, 18, 0.5)),
+          radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 244, 214, 0.18), transparent 60%);
+      }
+      .lock-screen img {
+        position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+      }
+      .lock-screen > * { position: relative; z-index: 2; }
+      .lock-screen.unlocked { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+      .lock-clock { position: relative; z-index: 2; text-align: center; color: #fff;
+        text-shadow: 0 2px 26px rgba(0,0,0,0.55); animation: lockFade 900ms ease both; }
+      .lock-clock .time { font-family: "Sora", sans-serif; font-size: clamp(3.2rem, 13vw, 6rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+      .lock-clock .date { margin-top: 10px; font-size: 1.02rem; opacity: 0.92; letter-spacing: 0.05em; }
+
+      .lock-hint { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+        color: #fff; padding: 14px 26px; border-radius: 999px; cursor: pointer;
+        background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+        animation: lockFade 900ms 240ms ease both; }
+      .lock-hint .arrows { display: flex; flex-direction: column; align-items: center; }
+      .lock-hint .arrows i { display: block; width: 14px; height: 14px; border-left: 2px solid #fff; border-top: 2px solid #fff;
+        transform: rotate(45deg); margin: -4px 0; opacity: 0.3; animation: bounceUp 1.6s infinite; }
+      .lock-hint .arrows i:nth-child(2) { animation-delay: 0.2s; opacity: 0.6; }
+      .lock-hint .arrows i:nth-child(3) { animation-delay: 0.4s; opacity: 0.95; }
+      .lock-hint .label { font-size: 0.9rem; letter-spacing: 0.08em; }
+      @keyframes bounceUp { 0%,100% { transform: rotate(45deg) translate(0,0); } 50% { transform: rotate(45deg) translate(3px,-3px); } }
+      @keyframes lockFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+      /* ---------------- Layered entrance + ambient motion ---------------- */
+      body.entered .hero .eyebrow,
+      body.entered .hero h1,
+      body.entered .hero .lead,
+      body.entered .hero .tagline,
+      body.entered .hero .cta-row,
+      body.entered .hero .hero-badges,
+      body.entered .hero .hero-visual { opacity: 0; animation: heroIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+      body.entered .hero h1 { animation-delay: 0.12s; }
+      body.entered .hero .lead { animation-delay: 0.20s; }
+      body.entered .hero .tagline { animation-delay: 0.28s; }
+      body.entered .hero .cta-row { animation-delay: 0.36s; }
+      body.entered .hero .hero-badges { animation-delay: 0.46s; }
+      body.entered .hero .hero-visual { animation-delay: 0.18s; }
+      @keyframes heroIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+
+      .photo-card { animation: cardFloat 6.5s ease-in-out infinite; }
+      @keyframes cardFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+      /* light sweep across buttons */
+      .btn::after {
+        content: ""; position: absolute; top: 0; left: -70%; width: 45%; height: 100%;
+        background: linear-gradient(105deg, transparent, rgba(255,255,255,0.55), transparent);
+        transform: skewX(-20deg); pointer-events: none; transition: left 0.65s ease;
+      }
+      .btn:hover::after { left: 130%; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .photo-card, .orb, h1 .grad, .lock-hint .arrows i { animation: none !important; }
       }
 
-      @media (max-width: 760px) {
-        .page-shell {
-          width: min(100%, calc(100% - 16px));
-          margin: 8px auto 20px;
-          padding: 12px 12px 18px;
-          border-radius: 18px;
-        }
-        .topbar {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 10px;
-          border-radius: 18px;
-        }
+      /* ============================================================
+         RESPONSIVE SYSTEM — fluid from wide desktop down to small phones
+         ============================================================ */
+      img, svg, video { max-width: 100%; }
+
+      /* Small laptop / large tablet */
+      @media (max-width: 1080px) {
+        .hero { gap: 26px; }
+        .skill-grid, .project-grid, .edu-grid { gap: 14px; }
+      }
+
+      /* Tablet — single-column hero, 2-up grids */
+      @media (max-width: 900px) {
+        .hero, .about-grid, .modal-hero { grid-template-columns: 1fr; }
+        .hero { padding: 12px 2px 32px; }
+        .hero-visual { max-width: 440px; width: 100%; margin: 4px auto 0; }
+        .photo-card { min-height: 0; }
+        .skill-grid, .project-grid, .edu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .nav-links { gap: 2px; font-size: 0.86rem; }
+        .nav-links a { padding: 6px 10px; }
+        section { padding: 26px 2px; }
+      }
+
+      /* Landscape phone / small tablet — stack + scrollable nav */
+      @media (max-width: 720px) {
+        .topbar { flex-direction: column; gap: 10px; padding: 12px 14px; border-radius: 24px; }
+        .topbar::after { left: 30%; right: 30%; }
         .nav-links {
-          flex-wrap: wrap;
-          gap: 10px;
+          width: 100%; justify-content: flex-start;
+          overflow-x: auto; -webkit-overflow-scrolling: touch;
+          scrollbar-width: none; padding-bottom: 2px;
         }
-        .hero {
-          padding: 14px 2px 20px;
-          gap: 18px;
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { flex: none; white-space: nowrap; }
+      }
+
+      /* Phone */
+      @media (max-width: 640px) {
+        .page-shell { width: calc(100% - 16px); padding: 10px 8px 24px; margin-top: 14px; }
+        .skill-grid, .project-grid, .edu-grid { grid-template-columns: 1fr; }
+        .cta-row { flex-direction: column; }
+        .btn { width: 100%; justify-content: center; }
+        .footer { flex-direction: column; align-items: flex-start; }
+        .section-head { margin-bottom: 16px; }
+        .panel { padding: 18px; }
+        .tagline { letter-spacing: 0.16em; flex-wrap: wrap; }
+        .project-modal { padding: 12px; }
+        .project-modal-card { padding: 18px; border-radius: 22px; max-height: 92vh; }
+        .modal-image { min-height: 160px; }
+        .contact-line { flex-wrap: wrap; word-break: break-word; }
+        /* lighter blur on phones = smoother 60fps */
+        .glass, .btn.primary, .btn.secondary, .btn.ghost {
+          backdrop-filter: blur(18px) saturate(165%);
+          -webkit-backdrop-filter: blur(18px) saturate(165%);
         }
-        .cta-row {
-          flex-direction: column;
-        }
-        .btn {
-          width: 100%;
-          text-align: center;
-        }
-        .hero-badges {
-          flex-direction: column;
-        }
-        .skill-grid,
-        .project-grid {
-          grid-template-columns: 1fr;
-        }
-        .photo-card {
-          min-height: 320px;
-        }
-        .footer {
-          flex-direction: column;
-          align-items: flex-start;
-        }
+      }
+
+      /* Small phone */
+      @media (max-width: 400px) {
+        .eyebrow { font-size: 0.66rem; letter-spacing: 0.12em; }
+        .hero-badges span { font-size: 0.8rem; padding: 7px 12px; }
+        .tagline { font-size: 0.72rem; }
+        .edu-ring { width: 82px; height: 82px; }
+        .floating-badge { left: 12px; right: 12px; bottom: 12px; padding: 10px 12px; }
+        .brand { font-size: 0.98rem; }
+        .lock-hint { padding: 12px 20px; }
       }
     </style>
   </head>
-  <body>
+  <body class="is-locked">
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ===================== LOCK SCREEN ===================== -->
+    <div id="lockScreen" class="lock-screen">
+      <img src="https://raw.githubusercontent.com/Atharv1221/ME/main/lockscreen.png" alt="Sunlit forest wallpaper" />
+
+      <div class="lock-clock">
+        <div class="time" id="lockTime">--:--</div>
+        <div class="date" id="lockDate"></div>
+      </div>
+
+      <div class="lock-hint" id="lockHint">
+        <div class="arrows"><i></i><i></i><i></i></div>
+        <span class="label">Swipe up to enter</span>
+      </div>
+    </div>
+
+    <!-- ===================== AMBIENT BACKGROUND ===================== -->
+    <div class="bg-scene">
+      <div class="orb a"></div>
+      <div class="orb b"></div>
+      <div class="orb c"></div>
+    </div>
+    <div class="bg-noise"></div>
+
     <div class="page-shell">
-      <header class="topbar">
+      <header class="topbar glass">
         <div class="brand">
-          <div class="dot">AM</div>
+          <div class="dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 4 13V8a4 4 0 0 1 4-4h6a6 6 0 0 1 0 12h-3"/><path d="M5 21c2-4 5-6 9-7"/>
+            </svg>
+          </div>
           <div>Atharv Mane</div>
         </div>
         <nav class="nav-links">
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
           <a href="#contact">Contact</a>
         </nav>
       </header>
 
       <section class="hero reveal">
         <div>
-          <div class="eyebrow">WEB/ BACKEND/ AI Developer</div>
-          <h1>Passionate about building <span>modern web experiences</span>.</h1>
+          <div class="eyebrow">AI Agent Developer · Full Stack</div>
+          <h1>Building <span class="grad">intelligent web experiences</span> that grow and adapt.</h1>
           <p class="lead">
-            I’m a detail-oriented software developer with hands-on experience in frontend and backend development, strong problem-solving ability, and a growing focus on modern web applications, AI, and intelligent systems.
+            I’m a detail-oriented software developer specializing in AI agents, full-stack applications, and backend systems — turning ideas into intelligent, automated products with strong problem-solving and a passion for modern web.
           </p>
+          <div class="tagline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13V8a4 4 0 0 1 4-4h6a6 6 0 0 1 0 12h-3"/><path d="M5 21c2-4 5-6 9-7"/></svg>
+            Ideas · Code · Creation · Impact
+          </div>
           <div class="cta-row">
-            <a class="btn primary" href="#projects">Explore Work</a>
+            <a class="btn primary" href="#projects">Start project →</a>
             <a class="btn secondary" href="#contact">Say Hello</a>
+            <a class="btn ghost" href="https://github.com/Atharv1221/ME/raw/main/AtharvMane_CV.pdf" download="AtharvMane_CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download resume">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+              Download CV
+            </a>
           </div>
           <div class="hero-badges">
+            <span>AI Agent Developer</span>
             <span>Full Stack Development</span>
             <span>AI / ML Enthusiast</span>
             <span>Problem Solver</span>
@@ -573,90 +756,115 @@
         <div class="hero-visual">
           <div class="photo-card">
             <img src="https://raw.githubusercontent.com/Atharv1221/ME/main/WhatsApp%20Image%202026-06-13%20at%205.42.47%20PM.jpeg" alt="Atharv Mane" />
-            <div class="floating-badge">Based in Navi Mumbai • Open to collaboration</div>
+            <div class="floating-badge">
+              <span class="status-dot"></span>
+              <span class="badge-text">
+                <small>📍 Based in Navi Mumbai</small>
+                <b>Currently working with SHM</b>
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="about" class="reveal">
-        <div class="section-title">About</div>
+        <div class="section-head">
+          <div class="section-title">About</div>
+          <h2 class="section-sub">A little about me</h2>
+        </div>
         <div class="card-grid about-grid">
-          <div class="panel">
+          <div class="panel glass">
             <h3>Background</h3>
             <p>
-              I’m currently pursuing a B.Tech in Computer Science Engineering (Artificial Intelligence & Machine Learning) at ViMEET, expected to graduate in 2027. My work combines practical software development with a strong curiosity for AI, backend systems, and modern web applications.
+              I’m pursuing a BE in Computer Science Engineering (Artificial Intelligence & Machine Learning). My work combines practical full-stack development with a strong focus on building AI agents, backend systems, and intelligent automation for real-world use cases.
             </p>
           </div>
-          <div class="panel">
+          <div class="panel glass">
             <h3>Strengths</h3>
             <ul>
+              <li>AI agent design &amp; intelligent automation</li>
               <li>Frontend and backend development</li>
               <li>Database design and REST APIs</li>
-              <li>Creative problem solving and continuous learning</li>
+              <li>Creative problem solving &amp; continuous learning</li>
             </ul>
           </div>
         </div>
       </section>
 
       <section id="skills" class="reveal">
-        <div class="section-title">Skills</div>
+        <div class="section-head">
+          <div class="section-title">Skills</div>
+          <h2 class="section-sub">Tools &amp; technologies</h2>
+        </div>
         <div class="skill-grid">
-          <div class="skill-item">
+          <div class="skill-item glass">
+            <div class="glow"></div>
             <div class="skill-hover-info"><span>90%</span><span>3 yrs</span></div>
             <strong>Frontend</strong>
-            HTML, CSS, JavaScript
-            <div class="bar"><span style="width: 90%"></span></div>
+            <span class="sk-desc">HTML, CSS, JavaScript</span>
+            <div class="bar"><span data-w="90"></span></div>
           </div>
-          <div class="skill-item">
+          <div class="skill-item glass">
+            <div class="glow"></div>
             <div class="skill-hover-info"><span>82%</span><span>2 yrs</span></div>
             <strong>Backend</strong>
-            Express.js, Node.js
-            <div class="bar"><span style="width: 82%"></span></div>
+            <span class="sk-desc">Express.js, Node.js</span>
+            <div class="bar"><span data-w="82"></span></div>
           </div>
-          <div class="skill-item">
+          <div class="skill-item glass">
+            <div class="glow"></div>
+            <div class="skill-hover-info"><span>85%</span><span>2 yrs</span></div>
+            <strong>AI Agents</strong>
+            <span class="sk-desc">Gemini, Llama, automation</span>
+            <div class="bar"><span data-w="85"></span></div>
+          </div>
+          <div class="skill-item glass">
+            <div class="glow"></div>
             <div class="skill-hover-info"><span>84%</span><span>2 yrs</span></div>
             <strong>Database</strong>
-            MySQL, REST APIs
-            <div class="bar"><span style="width: 84%"></span></div>
+            <span class="sk-desc">MySQL, REST APIs</span>
+            <div class="bar"><span data-w="84"></span></div>
           </div>
-          <div class="skill-item">
+          <div class="skill-item glass">
+            <div class="glow"></div>
             <div class="skill-hover-info"><span>88%</span><span>2+ yrs</span></div>
             <strong>Tools</strong>
-            GitHub, VS Code, Postman
-            <div class="bar"><span style="width: 88%"></span></div>
+            <span class="sk-desc">GitHub, VS Code, Postman</span>
+            <div class="bar"><span data-w="88"></span></div>
           </div>
-          <div class="skill-item">
+          <div class="skill-item glass">
+            <div class="glow"></div>
             <div class="skill-hover-info"><span>76%</span><span>1 yr</span></div>
             <strong>Design</strong>
-            Figma, UI thinking
-            <div class="bar"><span style="width: 76%"></span></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-hover-info"><span>80%</span><span>1.5 yrs</span></div>
-            <strong>AI</strong>
-            Gemini, Llama, automation
-            <div class="bar"><span style="width: 80%"></span></div>
+            <span class="sk-desc">Figma, UI thinking</span>
+            <div class="bar"><span data-w="76"></span></div>
           </div>
         </div>
       </section>
 
       <section id="projects" class="reveal">
-        <div class="section-title">Selected Projects</div>
+        <div class="section-head">
+          <div class="section-title">Selected Projects</div>
+          <h2 class="section-sub">Things I’ve built</h2>
+        </div>
         <div class="project-grid">
-          <article class="project-card" data-project="know-law">
+          <article class="project-card glass" data-project="know-law">
             <div class="project-visual"><img src="https://raw.githubusercontent.com/Atharv1221/ME/main/knowthelaw.png" alt="Know The Law" /></div>
             <h3>Know The Law</h3>
-            <p>An AI-powered legal awareness platform that simplifies Indian laws in native language and provides relevant legal guidance through intelligent query understanding.</p>
+            <p>An AI-powered legal awareness platform that simplifies Indian laws in native language and gives relevant guidance through intelligent query understanding.</p>
+            <div class="project-tags"><span>AI Agent</span><span>Frontend</span><span>NLP</span></div>
           </article>
-          <article class="project-card" data-project="interview-simulator">
+          <article class="project-card glass" data-project="interview-simulator">
             <div class="project-visual"><img src="https://raw.githubusercontent.com/Atharv1221/ME/main/aiinterview.png" alt="AI Interview Simulator" /></div>
             <h3>AI Interview Simulator</h3>
-            <p>An interview-preparation platform with AI mock interviews, coding assessments, DSA practice, and real-time feedback.</p>
+            <p>An interview-prep platform with AI mock interviews, coding assessments, DSA practice, and real-time feedback.</p>
+            <div class="project-tags"><span>AI</span><span>Full Stack</span><span>Feedback</span></div>
           </article>
-          <article class="project-card" data-project="dodo-ai">
+          <article class="project-card glass" data-project="dodo-ai">
             <div class="project-visual"><img src="https://raw.githubusercontent.com/Atharv1221/ME/main/dodoai.png" alt="DODO AI" /></div>
             <h3>DODO AI</h3>
             <p>A personal AI assistant focused on task management, reminders, personal goals, and finance-related automation.</p>
+            <div class="project-tags"><span>AI Agent</span><span>Automation</span><span>Productivity</span></div>
           </article>
         </div>
       </section>
@@ -668,32 +876,70 @@
         </div>
       </div>
 
+      <section id="education" class="reveal">
+        <div class="section-head">
+          <div class="section-title">Education</div>
+          <h2 class="section-sub">Academic journey</h2>
+        </div>
+        <div class="edu-grid">
+          <div class="edu-card glass">
+            <div class="edu-ring" data-pct="68"><b>68%</b></div>
+            <h3>BE — CSE (AI / ML)</h3>
+            <p class="edu-meta">Bachelor of Engineering</p>
+            <p class="edu-year">Pursuing · Aggregate 68%</p>
+          </div>
+          <div class="edu-card glass">
+            <div class="edu-ring" data-pct="64.5"><b>64.5%</b></div>
+            <h3>12th — HSC</h3>
+            <p class="edu-meta">Higher Secondary Certificate</p>
+            <p class="edu-year">Science · 64.5%</p>
+          </div>
+          <div class="edu-card glass">
+            <div class="edu-ring" data-pct="80.64"><b>80.64%</b></div>
+            <h3>10th — SSC</h3>
+            <p class="edu-meta">Secondary School Certificate</p>
+            <p class="edu-year">80.64%</p>
+          </div>
+        </div>
+      </section>
+
       <section class="reveal">
-        <div class="section-title">Experience & Education</div>
+        <div class="section-head">
+          <div class="section-title">Focus &amp; Interests</div>
+          <h2 class="section-sub">Where I’m headed</h2>
+        </div>
         <div class="timeline">
-          <div class="timeline-item">
+          <div class="timeline-item glass">
             <h3>Current Focus</h3>
-            <p>Building full-stack web applications and exploring AI/ML concepts such as backend development, model fine-tuning, and intelligent automation.</p>
+            <p>Building AI agents and full-stack web applications — exploring model fine-tuning, intelligent automation, and backend systems.</p>
           </div>
-          <div class="timeline-item">
-            <h3>Education</h3>
-            <p>B.Tech in Computer Science Engineering (AI & ML) at ViMEET, expected graduation 2027.</p>
-          </div>
-          <div class="timeline-item">
+          <div class="timeline-item glass">
             <h3>Interests</h3>
-            <p>Generative AI, intelligent systems, software testing, databases, and creating practical solutions for real-world problems.</p>
+            <p>Generative AI, autonomous agents, intelligent systems, software testing, databases, and practical solutions for real-world problems.</p>
           </div>
         </div>
       </section>
 
       <section id="contact" class="reveal">
-        <div class="section-title">Contact</div>
+        <div class="section-head">
+          <div class="section-title">Contact</div>
+          <h2 class="section-sub">Let’s connect</h2>
+        </div>
         <div class="contact-grid">
-          <div class="panel">
+          <div class="panel glass">
             <h3>Let’s build something refined and lasting</h3>
-            <p>Email: atharvmane404@gmail.com</p>
-            <p>Phone: +91-9702161668</p>
-            <p>Location: Navi Mumbai, Maharashtra</p>
+            <div class="contact-line">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 8 8 6 8-6"/></svg>
+              atharvmane404@gmail.com
+            </div>
+            <div class="contact-line">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +91-9702161668
+            </div>
+            <div class="contact-line">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Navi Mumbai, Maharashtra
+            </div>
             <div class="contact-actions">
               <a class="contact-icon" href="#" onclick="openEmailComposer(event)" aria-label="Email Atharv">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -719,20 +965,220 @@
 
       <div class="footer">
         <span>© <span id="year"></span> Atharv Mane</span>
-        <span>Developer</span>
+        <span>AI Agent Developer · Full Stack</span>
       </div>
     </div>
 
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
+      /* Always begin at the top — stop the browser restoring a scrolled position
+         under the locked overlay (which made unlock reveal the bottom). */
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+      window.addEventListener('load', () => window.scrollTo(0, 0));
+
+      /* ---------- Lock screen ---------- */
+      const lock = document.getElementById('lockScreen');
+
+      function unlock() {
+        if (lock.classList.contains('unlocked')) return;
+        lock.style.transition = '';        // restore CSS slide transition
+        lock.style.transform = '';         // clear any drag offset
+        lock.classList.add('unlocked');
+        document.body.classList.remove('is-locked');
+        document.body.classList.add('entered');
+        // reveal the hero at the top, not wherever the page was restored to
+        const html = document.documentElement;
+        const prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';   // avoid a smooth-scroll animation
+        window.scrollTo(0, 0);
+        html.style.scrollBehavior = prev;
+        setTimeout(() => { lock.style.display = 'none'; }, 840);
+      }
+
+      lock.addEventListener('wheel', (e) => { if (e.deltaY > 6) unlock(); }, { passive: true });
+      document.getElementById('lockHint').addEventListener('click', unlock);
+      window.addEventListener('keydown', (e) => {
+        if (document.body.classList.contains('is-locked') &&
+            ['ArrowUp', 'Enter', ' ', 'Spacebar'].includes(e.key)) { e.preventDefault(); unlock(); }
+      });
+
+      // pointer / touch drag-up
+      let startY = null;
+      lock.addEventListener('pointerdown', (e) => {
+        startY = e.clientY; lock.style.transition = 'none'; lock.style.cursor = 'grabbing';
+      });
+      window.addEventListener('pointermove', (e) => {
+        if (startY === null) return;
+        const dy = e.clientY - startY;
+        if (dy < 0) lock.style.transform = `translateY(${dy}px)`;
+      });
+      window.addEventListener('pointerup', (e) => {
+        if (startY === null) return;
+        const dy = e.clientY - startY;
+        lock.style.transition = ''; lock.style.cursor = 'grab';
+        if (dy < -90) unlock(); else lock.style.transform = '';
+        startY = null;
+      });
+
+      // live clock
+      function tickClock() {
+        const d = new Date();
+        let h = d.getHours();
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if (h === 0) h = 12;        // 12-hour format
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        document.getElementById('lockTime').textContent = `${h}:${mm} ${ampm}`;
+        document.getElementById('lockDate').textContent =
+          d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+      }
+      tickClock(); setInterval(tickClock, 1000);
+
+      /* ---------- Scroll progress ---------- */
+      window.addEventListener('scroll', () => {
+        const st = document.documentElement.scrollTop || document.body.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        document.getElementById('scrollProgress').style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
+      }, { passive: true });
+
       const reveals = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            entry.target.querySelectorAll('.bar span[data-w]').forEach((el) => {
+              el.style.width = el.getAttribute('data-w') + '%';
+            });
+            entry.target.querySelectorAll('.edu-ring[data-pct]').forEach((el) => {
+              el.style.setProperty('--pct', el.getAttribute('data-pct'));
+            });
+          }
         });
       }, { threshold: 0.12 });
       reveals.forEach((item) => observer.observe(item));
+
+      /* ============================================================
+         Cross-device Liquid-Glass interaction engine
+         • Mouse / pen / trackpad: cursor light + capped ±3° tilt.
+         • Touch: the finger is the light source (compress, no hover).
+         • One rAF loop, interpolated (never snaps), only CSS vars change.
+         • Off-screen cards are skipped; respects reduced-motion.
+         ============================================================ */
+      (function () {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const MAX_ROT = 3; // degrees, per spec
+        const cards = Array.from(document.querySelectorAll('.panel, .project-card, .edu-card, .skill-item, .timeline-item'));
+        const state = new Map();
+        cards.forEach((el) => state.set(el, {
+          lx: 50, ly: 50, tlx: 50, tly: 50,      // light position (%)
+          rotX: 0, rotY: 0, tRotX: 0, tRotY: 0,  // tilt (deg)
+          lift: 0, tlift: 0, press: 1, tpress: 1
+        }));
+
+        // pause work for off-screen cards
+        const visible = new Set();
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((e) => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target));
+          }, { threshold: 0.02 });
+          cards.forEach((el) => io.observe(el));
+        } else { cards.forEach((el) => visible.add(el)); }
+
+        const active = new Set();
+        let running = false;
+        const lerp = (a, b, t) => a + (b - a) * t;
+
+        function frame() {
+          active.forEach((el) => {
+            const s = state.get(el);
+            s.lx = lerp(s.lx, s.tlx, 0.18); s.ly = lerp(s.ly, s.tly, 0.18);       // light: quicker
+            s.rotX = lerp(s.rotX, s.tRotX, 0.10); s.rotY = lerp(s.rotY, s.tRotY, 0.10); // tilt: gentler
+            s.lift = lerp(s.lift, s.tlift, 0.14);
+            s.press = lerp(s.press, s.tpress, 0.20);
+            el.style.setProperty('--mx', s.lx.toFixed(2) + '%');
+            el.style.setProperty('--my', s.ly.toFixed(2) + '%');
+            el.style.setProperty('--rx', s.rotX.toFixed(3) + 'deg');
+            el.style.setProperty('--ry', s.rotY.toFixed(3) + 'deg');
+            el.style.setProperty('--lift', s.lift.toFixed(2) + 'px');
+            el.style.setProperty('--press', s.press.toFixed(4));
+            const atRest = s.tlift === 0 && s.tRotX === 0 && s.tRotY === 0 && s.tpress === 1;
+            const settled =
+              Math.abs(s.lx - s.tlx) < 0.08 && Math.abs(s.ly - s.tly) < 0.08 &&
+              Math.abs(s.rotX - s.tRotX) < 0.02 && Math.abs(s.rotY - s.tRotY) < 0.02 &&
+              Math.abs(s.lift - s.tlift) < 0.08 && Math.abs(s.press - s.tpress) < 0.002;
+            if (atRest && settled) active.delete(el);
+          });
+          if (active.size) requestAnimationFrame(frame); else running = false;
+        }
+        function wake() { if (!running) { running = true; requestAnimationFrame(frame); } }
+
+        function point(el, px, py, touch) {
+          const s = state.get(el); if (!s) return;
+          s.tlx = px * 100; s.tly = py * 100;
+          if (!reduce) { s.tRotY = (px - 0.5) * 2 * MAX_ROT; s.tRotX = (0.5 - py) * 2 * MAX_ROT; }
+          s.tlift = touch ? 0 : -6;
+          s.tpress = touch ? 0.98 : 1;
+          active.add(el); wake();
+        }
+        function rest(el) {
+          const s = state.get(el); if (!s) return;
+          s.tlx = 50; s.tly = 50; s.tRotX = 0; s.tRotY = 0; s.tlift = 0; s.tpress = 1;
+          active.add(el); wake();
+        }
+
+        cards.forEach((el) => {
+          el.addEventListener('pointermove', (e) => {
+            if (!visible.has(el)) return;
+            const r = el.getBoundingClientRect();
+            const px = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+            const py = Math.min(Math.max((e.clientY - r.top) / r.height, 0), 1);
+            point(el, px, py, e.pointerType === 'touch');
+          }, { passive: true });
+          el.addEventListener('pointerdown', (e) => {
+            if (e.pointerType === 'touch') {
+              const r = el.getBoundingClientRect();
+              point(el, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height, true);
+              el.classList.add('touch-glow');
+            }
+          }, { passive: true });
+          const release = () => { el.classList.remove('touch-glow'); rest(el); };
+          el.addEventListener('pointerup', release, { passive: true });
+          el.addEventListener('pointercancel', release, { passive: true });
+          el.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'touch') rest(el); }, { passive: true });
+        });
+
+        // photo card: light-only specular (keeps its idle float, no tilt)
+        const photo = document.querySelector('.photo-card');
+        if (photo) {
+          photo.addEventListener('pointermove', (e) => {
+            const r = photo.getBoundingClientRect();
+            photo.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+            photo.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+          }, { passive: true });
+        }
+
+        // Optional: subtle device-tilt parallax on the ambient background (iOS needs a gesture to grant)
+        if (!reduce && typeof DeviceOrientationEvent !== 'undefined') {
+          const root = document.documentElement;
+          const onTilt = (e) => {
+            const gx = Math.max(-1, Math.min(1, (e.gamma || 0) / 30));
+            const gy = Math.max(-1, Math.min(1, ((e.beta || 0) - 40) / 30));
+            root.style.setProperty('--tiltx', (gx * 8).toFixed(1) + 'px');
+            root.style.setProperty('--tilty', (gy * 8).toFixed(1) + 'px');
+          };
+          const enable = () => {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+              DeviceOrientationEvent.requestPermission()
+                .then((p) => { if (p === 'granted') window.addEventListener('deviceorientation', onTilt); })
+                .catch(() => {});
+            } else {
+              window.addEventListener('deviceorientation', onTilt);
+            }
+          };
+          window.addEventListener('touchstart', enable, { once: true, passive: true });
+        }
+      })();
 
       function openEmailComposer(event) {
         event.preventDefault();
@@ -741,11 +1187,8 @@
         const body = encodeURIComponent('Hi Atharv, I saw your portfolio and would love to connect.');
         const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
         const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
-
         window.location.href = mailtoUrl;
-        setTimeout(() => {
-          window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-        }, 250);
+        setTimeout(() => { window.open(gmailUrl, '_blank', 'noopener,noreferrer'); }, 250);
       }
 
       function openWhatsApp(event) {
@@ -787,7 +1230,6 @@
           const key = card.getAttribute('data-project');
           const data = projectDetails[key];
           if (!data) return;
-
           document.getElementById('projectModalContent').innerHTML = `
             <div class="modal-hero">
               <div class="modal-image">${data.imageLabel}</div>
@@ -817,7 +1259,6 @@
       function closeProjectModal() {
         document.getElementById('projectModal').classList.remove('open');
       }
-
       document.getElementById('projectModal').addEventListener('click', (event) => {
         if (event.target.id === 'projectModal') closeProjectModal();
       });
